@@ -8,6 +8,10 @@ const User = require('../models/user');
 
 //SIGNUP
 
+router.get('/signup', (req, res) => {
+  res.render('users/signup');
+});
+
 router.post(
   '/signup',
   [
@@ -37,13 +41,13 @@ router.post(
       res.json({ message: err });
     }
 
-    res.status(201).json({ message: 'Successfully signed up' });
+    res.redirect('/posts/');
   }
 );
 
 //LOGIN
 
-router.get('/login', async (req, res, next) => {
+router.get('/login', (req, res) => {
   try {
     res.render('users/login');
   } catch (err) {

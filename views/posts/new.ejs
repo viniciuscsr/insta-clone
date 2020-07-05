@@ -1,0 +1,44 @@
+<%- include("../partials/header") %>
+
+<form
+  action="/posts/"
+  method="POST"
+  enctype="multipart/form-data"
+  class="form-signin"
+>
+  <img
+    class="mb-4"
+    src="../../public/icons/InstaCloneIcon.png"
+    alt=""
+    width="72"
+    height="72"
+  />
+  <h1 class="h3 mb-3 font-weight-normal">New Post</h1>
+  <label class="sr-only">Select a Photo</label>
+  <input name="image" type="file" />
+  <label class="sr-only">Title</label>
+  <input
+    name="title"
+    type="text"
+    id="inputEmail"
+    class="form-control"
+    placeholder="Title"
+    required
+    autofocus
+  />
+  <div class="form-group">
+    <label class="sr-only">Caption</label>
+    <textarea
+      name="caption"
+      class="form-control"
+      rows="3"
+      placeholder="Caption"
+    ></textarea>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Submit
+  </button>
+</form>
+
+<%- include("../partials/footer") %>

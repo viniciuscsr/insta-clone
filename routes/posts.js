@@ -33,7 +33,7 @@ const User = require('../models/user');
 const middleware = require('../middleware/index');
 
 // GETS BACK ALL POSTS
-router.get('/', async (req, res, next) => {
+router.get('/', middleware.isLoggedIn, async (req, res, next) => {
   try {
     const posts = await Post.find();
     res.render('posts/newsfeed', { posts: posts });
@@ -42,13 +42,17 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// CREATES A NEW POST
+// NEW POST
+router.get('/new', middleware.isLoggedIn, (req, res) => {
+  res.render('posts/new');
+});
+
 router.post(
   '/',
   middleware.isLoggedIn,
   upload.single('image'),
   async (req, res) => {
-    console.log(req.file);
+    console.log(req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });

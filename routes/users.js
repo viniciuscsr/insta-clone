@@ -14,7 +14,6 @@ router.post(
     check('password').isLength({ min: 6 }),
     check('name').notEmpty(),
     body('email').isEmail().normalizeEmail(),
-    check('photo').isURL(),
   ],
   async (req, res, next) => {
     //data validation
@@ -26,7 +25,6 @@ router.post(
     const newUser = {
       name: req.body.name,
       username: req.body.username,
-      photo: req.body.photo,
       email: req.body.email,
     };
 
@@ -47,7 +45,7 @@ router.post(
 
 router.get('/login', async (req, res, next) => {
   try {
-    res.render('pages/login');
+    res.render('users/login');
   } catch (err) {
     res.json({ message: err });
   }

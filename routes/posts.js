@@ -36,7 +36,7 @@ const middleware = require('../middleware/index');
 router.get('/', async (req, res, next) => {
   try {
     const posts = await Post.find();
-    res.render('pages/main_posts', { posts: posts });
+    res.render('posts/newsfeed', { posts: posts });
   } catch (err) {
     res.json({ message: err });
   }

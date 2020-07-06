@@ -103,7 +103,9 @@ router.post(
 router.get('/:postId', async (req, res) => {
   let post;
   try {
-    post = await Post.findById(req.params.postId).populate('user');
+    post = await Post.findById(req.params.postId)
+      .populate('user')
+      .populate('comments');
   } catch (err) {
     res.json({ message: err });
   }

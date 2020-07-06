@@ -9,8 +9,27 @@
   </div>
   <div class="image-container">
     <img src="/<%= post.image %>" class="post-image" />
+    <p id="image-caption"><%= post.caption%></p>
   </div>
-  <p><%= post.caption%></p>
+
+  <div class="comments-alignment">
+    <% for (let i = 0; i < post.comments.length; i++) { %>
+    <p>
+      <span class="font-weight-bold"
+        ><%= post.comments[i].user.username %> </span
+      ><%= post.comments[i].text %>
+    </p>
+    <% } %>
+  </div>
+
+  <div>
+    <form action="/posts/<%= post._id%>/comments" method="POST">
+      <textarea name="text" placeholder="Leave a Comment"></textarea>
+      <button type="submit" class="btn btn-outline-secondary">
+        <i class="fa fa-share"></i> Share
+      </button>
+    </form>
+  </div>
 </div>
 
 <%- include("../partials/footer") %>

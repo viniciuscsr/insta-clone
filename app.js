@@ -52,7 +52,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  console.log(req.user);
   next();
 });
 

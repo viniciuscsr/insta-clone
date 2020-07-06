@@ -61,7 +61,7 @@ router.post('/', middleware.isLoggedIn, async (req, res, next) => {
     console.error(err);
     throw err;
   } finally {
-    res.json({ message: 'New comment created' });
+    res.redirect('/posts/' + newComment.post);
   }
 });
 

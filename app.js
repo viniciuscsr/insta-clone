@@ -50,15 +50,20 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  console.log(req.user);
+  next();
+});
 
 app.use('/posts', postsRoutes);
 app.use('/users', usersRoutes);
 app.use('/posts/:postId/comments', commentsRoutes);
 
-//ROUTES
+//HOMEPAGE
 
 app.get('/', (req, res) => {
-  res.send('Home page');
+  res.render('home');
 });
 
 app.listen(3000, () => {

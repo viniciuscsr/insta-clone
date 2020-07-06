@@ -32,17 +32,23 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const middleware = require('../middleware/index');
 
-// GETS BACK ALL POSTS
+// -----------------
+// NEWS FEED
+// -----------------
+
 router.get('/', middleware.isLoggedIn, async (req, res, next) => {
   try {
     const posts = await Post.find();
-    res.render('posts/newsfeed', { posts: posts });
+    res.render('posts/newsfeed', { post: posts });
   } catch (err) {
     res.json({ message: err });
   }
 });
 
+// -----------------
 // NEW POST
+// -----------------
+
 router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render('posts/new');
 });
@@ -90,7 +96,10 @@ router.post(
   }
 );
 
-//SPECIFIC POST
+// -----------------
+// SHOW POST
+// -----------------
+
 router.get('/:postId', async (req, res) => {
   let post;
   try {
@@ -102,7 +111,10 @@ router.get('/:postId', async (req, res) => {
   res.render('posts/show', { post: post });
 });
 
-//DELETE POST
+// -----------------
+// DELETE POST
+// -----------------
+
 router.delete('/:postId', middleware.postOwnership, async (req, res) => {
   let post;
 
@@ -132,7 +144,10 @@ router.delete('/:postId', middleware.postOwnership, async (req, res) => {
   res.json({ message: 'Post was deleted' });
 });
 
-//UPDATE POST
+// -----------------
+// UPDATE POST
+// -----------------
+
 router.get('/:postId/edit', middleware.postOwnership, async (req, res) => {
   let updatePost;
   try {

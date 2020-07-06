@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
+const methodOverride = require('method-override');
 
 const User = require('./models/user');
 
@@ -48,6 +49,7 @@ app.use('/public', express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.use('/posts', postsRoutes);
 app.use('/users', usersRoutes);

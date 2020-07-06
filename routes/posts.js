@@ -86,7 +86,7 @@ router.post(
       return res.json({ message: err });
     }
 
-    res.json({ newPost: newPost });
+    res.redirect('/posts/');
   }
 );
 
@@ -131,16 +131,27 @@ router.delete('/:postId', middleware.postOwnership, async (req, res) => {
 });
 
 //UPDATE POST
-router.patch('/:postId', middleware.postOwnership, async (req, res) => {
+router.get('/:postId/edit', middleware.postOwnership, async (req, res) => {
+  let updatePost;
   try {
-    const updatedPost = await Post.updateOne(
-      { _id: req.params.postId },
-      { $set: { title: req.body.title } }
-    );
-    res.json({ updated_post: updatedPost });
+    updatePost = await Post.findById(req.params.postId);
   } catch (err) {
     res.json({ message: err });
   }
+  res.render('posts/edit', { updatePost: updatePost });
+});
+
+router.patch('/:postId', middleware.postOwnership, async (req, res) => {
+  try {
+    console.log(req.body);
+    const updatedPost = await Post.updateOne(
+      { _id: req.params.postId },
+      { $set: { title: req.body.title, caption: req.body.caption } }
+    );
+  } catch (err) {
+    res.json({ message: err });
+  }
+  res.redirect('/posts/');
 });
 
 module.exports = router;

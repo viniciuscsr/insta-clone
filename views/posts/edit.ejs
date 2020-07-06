@@ -1,0 +1,41 @@
+<%- include("../partials/header") %>
+
+<form
+  action="/posts/<%=updatePost._id%>?_method=PATCH"
+  method="POST"
+  class="form-signin"
+>
+  <img
+    class="mb-4"
+    src="../../public/icons/InstaCloneIcon.png"
+    alt=""
+    width="72"
+    height="72"
+  />
+  <h1 class="h3 mb-3 font-weight-normal">Edit Post</h1>
+  <label class="sr-only">Title</label>
+  <input
+    name="title"
+    type="text"
+    id="inputEmail"
+    class="form-control"
+    value="<%=updatePost.title%>"
+    required
+    autofocus
+  />
+  <div class="form-group">
+    <label class="sr-only">Caption</label>
+    <textarea
+      name="caption"
+      class="form-control"
+      rows="3"
+      value="<%=updatePost.caption%>"
+    ></textarea>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Submit
+  </button>
+</form>
+
+<%- include("../partials/footer") %>

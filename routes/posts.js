@@ -92,12 +92,14 @@ router.post(
 
 //SPECIFIC POST
 router.get('/:postId', async (req, res) => {
+  let post;
   try {
-    const post = await Post.findById(req.params.postId);
-    res.json(post);
+    post = await Post.findById(req.params.postId).populate('user');
   } catch (err) {
     res.json({ message: err });
   }
+  console.log(post);
+  res.render('posts/show', { post: post });
 });
 
 //DELETE POST

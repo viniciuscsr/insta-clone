@@ -10,9 +10,13 @@
   <div class="image-container">
     <img src="/<%= post.image %>" class="post-image" />
     <p id="image-caption"><%= post.caption%></p>
+    <a href="/posts/<%= post._id%>/edit"><button>Edit</button></a>
+    <form action="/posts/<%= post._id%>?_method=DELETE" method="POST">
+      <button>Delete</button>
+    </form>
   </div>
-
-  <div class="comments-alignment">
+  <!-- Comment Section -->
+  <div class="comments-section">
     <% for (let i = 0; i < post.comments.length; i++) { %>
     <p>
       <span class="font-weight-bold"
@@ -21,9 +25,12 @@
     </p>
     <% } %>
   </div>
-
   <div>
-    <form action="/posts/<%= post._id%>/comments" method="POST">
+    <form
+      action="/posts/<%= post._id%>/comments"
+      method="POST"
+      class="comment-form"
+    >
       <textarea name="text" placeholder="Leave a Comment"></textarea>
       <button type="submit" class="btn btn-outline-secondary">
         <i class="fa fa-share"></i> Share

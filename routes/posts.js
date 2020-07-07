@@ -30,6 +30,7 @@ const upload = multer({
 
 const Post = require('../models/post');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 const middleware = require('../middleware/index');
 
 // -----------------
@@ -58,7 +59,6 @@ router.post(
   middleware.isLoggedIn,
   upload.single('image'),
   async (req, res) => {
-    console.log(req);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -109,7 +109,6 @@ router.get('/:postId', async (req, res) => {
   } catch (err) {
     res.json({ message: err });
   }
-  console.log(post);
   res.render('posts/show', { post: post });
 });
 
@@ -118,8 +117,8 @@ router.get('/:postId', async (req, res) => {
 // -----------------
 
 router.delete('/:postId', middleware.postOwnership, async (req, res) => {
+  // Finding and populating the post
   let post;
-
   try {
     post = await Post.findById(req.params.postId)
       .populate('user')
@@ -127,23 +126,22 @@ router.delete('/:postId', middleware.postOwnership, async (req, res) => {
   } catch (err) {
     res.json({ message: err });
   }
-
+  // Deleting the comments of the post and
   try {
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    post.comments.pull(post);
-
-    // DELETE COMMENTS FROM DB WHEN USER DELETES POSTS
-    // await post.comments.save({ session: sess });
-    // await post.remove({ session: sess });
-    // post.user.posts.pull(post);
-    // await post.user.save({ session: sess });
-    await sess.commitTransaction();
+    for (let i = 0; i < post.comments.length; i++) {
+      await Comment.findByIdAndDelete(post.comments[i]._id);
+    }
+  } catch (err) {
+    return res.json({ message: err });
+  }
+  // Deleting the post
+  try {
+    await Post.findByIdAndDelete(req.params.postId);
   } catch (err) {
     return res.json({ message: err });
   }
 
-  res.json({ message: 'Post was deleted' });
+  res.redirect('/posts/');
 });
 
 // -----------------
@@ -162,7 +160,6 @@ router.get('/:postId/edit', middleware.postOwnership, async (req, res) => {
 
 router.patch('/:postId', middleware.postOwnership, async (req, res) => {
   try {
-    console.log(req.body);
     const updatedPost = await Post.updateOne(
       { _id: req.params.postId },
       { $set: { title: req.body.title, caption: req.body.caption } }

@@ -21,8 +21,6 @@ router.post('/', middleware.isLoggedIn, async (req, res, next) => {
     post: req.params.postId,
   });
 
-  console.log(newComment);
-
   let user;
 
   try {
@@ -30,8 +28,6 @@ router.post('/', middleware.isLoggedIn, async (req, res, next) => {
   } catch (err) {
     return res.json({ message: err });
   }
-
-  console.log(user);
 
   let post;
 

@@ -105,10 +105,12 @@ router.get('/:postId', async (req, res) => {
   try {
     post = await Post.findById(req.params.postId)
       .populate('user')
-      .populate('comments');
+      .populate('comments')
+      .populate('comments.user');
   } catch (err) {
     res.json({ message: err });
   }
+  console.log(post.comments.user);
   res.render('posts/show', { post: post });
 });
 

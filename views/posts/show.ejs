@@ -10,10 +10,14 @@
   <div class="image-container">
     <img src="/<%= post.image %>" class="post-image" />
     <p id="image-caption"><%= post.caption%></p>
-    <a href="/posts/<%= post._id%>/edit"><button>Edit</button></a>
+    <% if (currentUser && currentUser._id.equals(post.user._id)) { %>
+    <a href="/posts/<%= post._id%>/edit"
+      ><button class="btn btn-outline-warning">Edit</button></a
+    >
     <form action="/posts/<%= post._id%>?_method=DELETE" method="POST">
-      <button>Delete</button>
+      <button class="btn btn-outline-danger">Delete</button>
     </form>
+    <% } %>
   </div>
   <!-- Comment Section -->
   <div class="comments-section">
@@ -23,6 +27,12 @@
         ><%= post.comments[i].user.username %> </span
       ><%= post.comments[i].text %>
     </p>
+    <form
+      action="/posts/<%= post._id %>/comments/<%= post.comments[i]._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button class="btn btn-outline-danger">Delete</button>
+    </form>
     <% } %>
   </div>
   <div>

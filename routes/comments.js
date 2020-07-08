@@ -69,7 +69,7 @@ router.delete('/:commentId', middleware.commentOwnership, async (req, res) => {
   } catch (error) {
     res.json({ message: 'Could not delete the comment' });
   }
-  res.json({ message: 'Comment deleted' });
+  res.redirect('/posts/' + req.params.postId);
 });
 
 module.exports = router;

@@ -8,7 +8,6 @@ const commentsRoutes = require('./routes/comments');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const passportLocalMongoose = require('passport-local-mongoose');
 const methodOverride = require('method-override');
 
 const User = require('./models/user');
@@ -16,7 +15,8 @@ const User = require('./models/user');
 // DB
 
 mongoose.connect(
-  'mongodb+srv://Vinicius:vini1306@cluster0-4gadr.mongodb.net/test?retryWrites=true&w=majority',
+  process.env.DATABASEURL ||
+    'mongodb+srv://Vinicius:vini1306@cluster0-4gadr.mongodb.net/test?retryWrites=true&w=majority',
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -65,6 +65,6 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port 3000');
 });

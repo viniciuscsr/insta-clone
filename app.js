@@ -16,7 +16,7 @@ const User = require('./models/user');
 
 mongoose.connect(
   process.env.DATABASEURL ||
-    'mongodb+srv://Vinicius:vini1306@cluster0-4gadr.mongodb.net/test?retryWrites=true&w=majority',
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0-4gadr.mongodb.net/test?retryWrites=true&w=majority`,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,

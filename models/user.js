@@ -21,6 +21,16 @@ const userSchema = new Schema({
       ref: 'Comment',
     },
   ],
+  followers: [
+    {
+      type: String,
+    },
+  ],
+  following: [
+    {
+      type: String,
+    },
+  ],
 });
 
 userSchema.plugin(uniqueValidator);

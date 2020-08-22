@@ -51,4 +51,34 @@ userController.logout = (req, res) => {
   res.redirect('/');
 };
 
+//-------------------------
+
+class FollowingProfile {
+  constructor(newFollowerId, userBeingFollowedId) {
+    this.newFollower = newFollowerId;
+    this.userBeingFollowed = userBeingFollowedId;
+  }
+  async follow() {
+    let foundUser;
+    try {
+      foundUser = await User.findById(this.userBeingFollowed);
+      for (let i = 0; i < foundUser.followers.length; i++) {
+        if (foundUser.followers[i] == this.newFollower) {
+          return console.log('You already follow this profile');
+        }
+      }
+      foundUser.followers.push(this.newFollower);
+      await foundUser.save();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+
+const newFollowerProcess = new FollowingProfile(
+  '5f01e80ad04de70efc7ff5c4',
+  '5eaf07b75abd260c72e08813'
+);
+newFollowerProcess.follow();
+
 module.exports = userController;

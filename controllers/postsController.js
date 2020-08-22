@@ -2,7 +2,7 @@ const postsController = {};
 const Post = require('../models/post');
 const User = require('../models/user');
 const Comment = require('../models/comment');
-const { check, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
 postsController.newsfeed = async (req, res, next) => {

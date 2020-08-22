@@ -59,16 +59,25 @@ class FollowingProfile {
     this.userBeingFollowed = userBeingFollowedId;
   }
   async follow() {
-    let foundUser;
+    let foundBeingFollowedUser;
+    let foundFollowingUser;
     try {
-      foundUser = await User.findById(this.userBeingFollowed);
-      for (let i = 0; i < foundUser.followers.length; i++) {
-        if (foundUser.followers[i] == this.newFollower) {
-          return console.log('You already follow this profile');
+      foundBeingFollowedUser = await User.findById(this.userBeingFollowed);
+      for (let i = 0; i < foundBeingFollowedUser.followers.length; i++) {
+        if (foundBeingFollowedUser.followers[i] == this.newFollower) {
+          return console.log('You already are a follower of this profile');
         }
       }
-      foundUser.followers.push(this.newFollower);
-      await foundUser.save();
+      foundBeingFollowedUser.followers.push(this.newFollower);
+      await foundBeingFollowedUser.save();
+      foundFollowingUser = await User.findById(this.newFollower);
+      for (let i = 0; i < foundFollowingUser.following.length; i++) {
+        if (foundFollowingUser.following[i] == this.userBeingFollowed) {
+          return console('This user is already on your following list');
+        }
+      }
+      foundFollowingUser.following.push(this.userBeingFollowed);
+      await foundFollowingUser.save();
     } catch (err) {
       console.log(err);
     }

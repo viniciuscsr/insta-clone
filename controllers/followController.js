@@ -1,36 +1,30 @@
 const followController = {};
+const FollowUnfollow = require('../models/FollowUnfollow');
 
-const User = require('../models/user');
+followController.follow = function (req, res) {
+  const loggedInUser = req.user.id;
+  const profileUser = req.params.userId;
+  const newFollow = new FollowUnfollow(loggedInUser, profileUser);
 
-followController.follow = function () {
-  // add current user id to schema (follower) of the profile userController
-  //   User.followers.push(newFollower);
-  // add profile user id to schema (following) of the current user
+  try {
+    newFollow.follow();
+    res.redirect('back');
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-followController.unfollow = function () {};
+followController.unfollow = function (req, res) {
+  const loggedInUser = req.user.id;
+  const profileUser = req.params.userId;
+  const newUnfollow = new FollowUnfollow(loggedInUser, profileUser);
 
-// let newFollower = req.user.id;
-// let userBeingFollowed = req.params.userId;
-
-// class FollowingProfile {
-//   constructor(newFollowerId, userBeingFollowedId) {
-//     this.newFollower = newFollowerId;
-//     this.userBeingFollowed = userBeingFollowedId;
-//   }
-//   async follow() {
-//     let foundUser = User.updateOne(
-//       { _id: this.userBeingFollowed },
-//       { $push: { userId: this.newFollower } }
-//     );
-//     console.log(foundUser);
-//   }
-// }
-
-// const newFollowerProcess = new FollowingProfile(
-//   '5f01e80ad04de70efc7ff5c4',
-//   '5eaf07b75abd260c72e08813'
-// );
-// newFollowerProcess.follow();
+  try {
+    newUnfollow.unfollow();
+    res.redirect('back');
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = followController;

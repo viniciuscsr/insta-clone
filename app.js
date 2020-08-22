@@ -2,15 +2,16 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const postsRoutes = require('./routes/posts');
-const usersRoutes = require('./routes/users');
-const commentsRoutes = require('./routes/comments');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
-
 const User = require('./models/user');
+
+const postsRoutes = require('./routes/posts');
+const usersRoutes = require('./routes/users');
+const commentsRoutes = require('./routes/comments');
+const followRoutes = require('./routes/follow');
 
 // DB
 
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(followRoutes);
 app.use('/posts', postsRoutes);
 app.use('/users', usersRoutes);
 app.use('/posts/:postId/comments', commentsRoutes);

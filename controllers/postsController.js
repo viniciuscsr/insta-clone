@@ -4,6 +4,11 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
+const SortingMechanism = require('../models/sortingMechanism');
+
+//-----------------
+// NEWSFEED
+//-----------------
 
 postsController.newsfeed = async (req, res, next) => {
   const userId = req.user.id;
@@ -28,7 +33,10 @@ postsController.newsfeed = async (req, res, next) => {
     console.log(err);
   }
 
-  res.render('posts/newsfeed', { post: postsToDisplay });
+  const sortedPosts = new SortingMechanism(postsToDisplay);
+  sortedPosts.mostRecent();
+
+  res.render('posts/newsfeed', { post: sortedPosts.sortedPosts });
 };
 
 postsController.getNewPost = (req, res) => {

@@ -6,12 +6,29 @@ const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
 postsController.newsfeed = async (req, res, next) => {
+  const userId = req.user.id;
+  let foundUser;
   try {
-    const posts = await Post.find().populate('user');
-    res.render('posts/newsfeed', { post: posts });
+    foundUser = await User.findById(userId);
   } catch (err) {
-    res.json({ message: err });
+    console.log(err);
   }
+
+  let postsToDisplay = [];
+  try {
+    for (let i = 0; i < foundUser.following.length; i++) {
+      let postsFromFollowed = await Post.find({
+        user: foundUser.following[i],
+      }).populate('user');
+      for (let i = 0; i < postsFromFollowed.length; i++) {
+        postsToDisplay.push(postsFromFollowed[i]);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.render('posts/newsfeed', { post: postsToDisplay });
 };
 
 postsController.getNewPost = (req, res) => {

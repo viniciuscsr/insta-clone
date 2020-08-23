@@ -1,0 +1,17 @@
+<%- include("./partials/header") %>
+
+<h2>Results</h2>
+
+<% for (let i = 0; i < results.length; i++) { %>
+<div class="card">
+  <div class="card-body">
+    <a href="/users/<%= results[i]._id %>"
+      ><h5 class="card-title"><%= results[i].name %></h5></a
+    >
+    <p class="card-text">
+      <%= results[i].username %>
+    </p>
+  </div>
+</div>
+
+<% } %> <%- include("./partials/footer") %>

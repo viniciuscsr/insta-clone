@@ -12,6 +12,7 @@ const postsRoutes = require('./routes/posts');
 const usersRoutes = require('./routes/users');
 const commentsRoutes = require('./routes/comments');
 const followRoutes = require('./routes/follow');
+const indexRoutes = require('./routes/index');
 
 // DB
 
@@ -56,16 +57,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(indexRoutes);
 app.use(followRoutes);
 app.use('/posts', postsRoutes);
 app.use('/users', usersRoutes);
 app.use('/posts/:postId/comments', commentsRoutes);
-
-//HOMEPAGE
-
-app.get('/', (req, res) => {
-  res.render('home');
-});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port 3000');

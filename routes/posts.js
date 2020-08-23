@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const middleware = require('../middleware/index');
+const postsController = require('../controllers/postsController');
+
+// -----------------
+// MUTLER - IMAGE UPLOAD
+// -----------------
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -25,9 +32,6 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 5 },
   fileFilter: fileFilter,
 });
-
-const middleware = require('../middleware/index');
-const postsController = require('../controllers/postsController');
 
 // -----------------
 // NEWSFEED

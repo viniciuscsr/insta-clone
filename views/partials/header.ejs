@@ -35,7 +35,13 @@
               <a class="nav-link" href="/posts/new" tabindex="-1" >New Post</a>
             </li>
             <% } %>
-            </ul>
+          </ul>
+            <ul class="navbar nav ml-md-auto">
+            <form class="form-inline my-2 my-lg-0" method="GET" action="/search">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search for Users" aria-label="Search" name="q">
+              <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </ul>
             <ul class="navbar-nav ml-auto">
             <% if(!currentUser){ %>
               <li class="nav-item">

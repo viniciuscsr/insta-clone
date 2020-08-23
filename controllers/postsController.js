@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 postsController.newsfeed = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate('user');
     res.render('posts/newsfeed', { post: posts });
   } catch (err) {
     res.json({ message: err });

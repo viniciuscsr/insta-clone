@@ -9,6 +9,10 @@ class FollowUnfollow {
     let foundFollowedUser;
     let foundFollowingUser;
     try {
+      // checking if user is trying to follow himself
+      if (this.profileUser == this.loggedInUser) {
+        return console.log('You can not follow yourself');
+      }
       // adding user id into the follower field of the profile user
       foundFollowedUser = await User.findById(this.profileUser);
       // checking if user id already exists in the array
@@ -38,6 +42,10 @@ class FollowUnfollow {
     let foundUnfollowedUser;
     let foundUnfollowingUser;
     try {
+      // checking if user is trying to unfollow himself
+      if (this.profileUser == this.loggedInUser) {
+        return console.log('You can not unfollow yourself');
+      }
       // removing user id from the follower field of the profile user
       foundUnfollowedUser = await User.findById(this.profileUser);
       foundUnfollowedUser.followers.pull(this.loggedInUser);

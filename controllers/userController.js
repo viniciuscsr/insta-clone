@@ -4,6 +4,10 @@ const User = require('../models/user');
 const passport = require('passport');
 const { validationResult } = require('express-validator');
 
+// ----------------
+// SIGNUP
+// ----------------
+
 userController.getSignup = (req, res) => {
   res.render('users/signup');
 };
@@ -33,6 +37,10 @@ userController.postSignup = async (req, res) => {
   res.redirect('/posts/');
 };
 
+// ----------------
+// LOGIN
+// ----------------
+
 userController.getLogin = (req, res) => {
   try {
     res.render('users/login');
@@ -46,9 +54,28 @@ userController.postLogin = passport.authenticate('local', {
   failureRedirect: '/users/login',
 });
 
+// ----------------
+// LOGOUT
+// ----------------
+
 userController.logout = (req, res) => {
   req.logout();
   res.redirect('/');
+};
+
+// ----------------
+// PROFILE
+// ----------------
+
+userController.profile = async (req, res) => {
+  const userId = req.params.userId;
+  let foundUser;
+  try {
+    foundUser = await User.findById(userId).populate('posts');
+  } catch (err) {
+    console.log(err);
+  }
+  res.render('users/profile', { user: foundUser });
 };
 
 module.exports = userController;

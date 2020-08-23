@@ -8,12 +8,18 @@
   <div class="container title-container">
     <a href="/posts/<%= post[i]._id %>"><h1><%= post[i].title %></h1></a>
     <p>
-      <span class="font-weight-bold"><%= post[i].user.username %></span> on
+      By
+      <a href="/users/<%= post[i].user._id %>"
+        ><span class="font-weight-bold"><%= post[i].user.username %></span></a
+      >
+      on
       <span><%= post[i].date%></span>
     </p>
   </div>
   <div class="image-container">
-    <img src="/<%= post[i].image %>" class="post-image" />
+    <a href="/posts/<%= post[i]._id %>"
+      ><img src="/<%= post[i].image %>" class="post-image"
+    /></a>
     <p><%= post[i].caption%></p>
   </div>
 </div>

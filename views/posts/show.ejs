@@ -3,7 +3,11 @@
   <div class="container title-container">
     <h1><%= post.title %></h1>
     <p>
-      <span class="font-weight-bold"><%= post.user.username %></span> on
+      By
+      <a href="/users/<%= post.user._id %>"
+        ><span class="font-weight-bold"><%= post.user.username %></span></a
+      >
+      on
       <span><%= post.date%></span>
     </p>
   </div>

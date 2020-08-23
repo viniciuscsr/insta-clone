@@ -74,3 +74,8 @@ body {
 textarea {
   border-color: lightgray;
 }
+
+.profile-page-card {
+  width: 18rem;
+  padding-top: 1.25rem;
+}

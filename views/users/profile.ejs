@@ -1,0 +1,37 @@
+<%- include("../partials/header") %>
+
+<div class="card col-12 col-xl-12">
+  <div class="card-body">
+    <h5 class="card-title"><%= user.name %></h5>
+    <p class="card-text">
+      <%= user.username %>
+    </p>
+    <a href="/users/<%= user._id %>/follow" class="btn btn-primary">Follow</a>
+    <a href="/users/<%= user._id %>/unfollow" class="btn btn-primary"
+      >Unfollow</a
+    >
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <% for (let i = 0; i < user.posts.length; i++) { %>
+    <div class="card col-xl-4 col-md-6 col-12 profile-page-card">
+      <a href="/posts/<%= user.posts[i]._id %>"
+        ><img class="card-img-top" src="/<%= user.posts[i].image %>"
+      /></a>
+      <div class="card-body">
+        <h5 class="card-title"><%= user.posts[i].title %></h5>
+        <p class="card-text">
+          <%= user.posts[i].caption %>
+        </p>
+        <a href="/posts/<%= user.posts[i]._id %>" class="btn btn-primary"
+          >See Post</a
+        >
+      </div>
+    </div>
+
+    <% } %>
+  </div>
+</div>
+<%- include("../partials/footer") %>

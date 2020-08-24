@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
-const SortingMechanism = require('../models/sortingMechanism');
+const SortingMechanism = require('../models/SortingMechanism');
 
 //-----------------
 // NEWSFEED

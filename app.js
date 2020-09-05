@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -63,6 +64,6 @@ app.use('/posts', postsRoutes);
 app.use('/users', usersRoutes);
 app.use('/posts/:postId/comments', commentsRoutes);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server running on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT} `);
 });

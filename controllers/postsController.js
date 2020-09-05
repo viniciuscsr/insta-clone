@@ -143,4 +143,34 @@ postsController.patchUpdatePost = async (req, res) => {
   res.redirect('/posts/');
 };
 
+postsController.likePost = async (req, res) => {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+  //check if user already liked the post
+  for (let i = 0; i < post.likes.length; i++) {
+    if (post.likes[i] == userId) {
+      return res.send('You already liked this post');
+    }
+  }
+  post.likes.push(userId);
+  await post.save();
+  res.redirect('back');
+};
+
+postsController.unlikePost = async (req, res) => {
+  const userId = req.user.id;
+  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+  for (let i = 0; i < post.likes.length; i++) {
+    if (post.likes[i] == userId) {
+      post.likes.pull(userId);
+      await post.save();
+      console.log(post);
+      res.redirect('back');
+    }
+  }
+  return res.send('You havent liked this post');
+};
+
 module.exports = postsController;

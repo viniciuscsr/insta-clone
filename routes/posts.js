@@ -33,6 +33,8 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
+// /posts
+
 // -----------------
 // NEWSFEED
 // -----------------
@@ -78,6 +80,18 @@ router.patch(
   '/:postId',
   middleware.postOwnership,
   postsController.patchUpdatePost
+);
+
+// -----------------
+// LIKE
+// -----------------
+
+router.get('/:postId/like', middleware.isLoggedIn, postsController.likePost);
+
+router.get(
+  '/:postId/unlike',
+  middleware.isLoggedIn,
+  postsController.unlikePost
 );
 
 module.exports = router;

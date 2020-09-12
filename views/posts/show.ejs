@@ -1,19 +1,33 @@
 <%- include("../partials/header") %>
-<div class="container post-container w-75 p-3 border rounded">
-  <div class="container title-container">
-    <h1><%= post.title %></h1>
-    <p>
-      By
-      <a href="/users/<%= post.user._id %>"
-        ><span class="font-weight-bold"><%= post.user.username %></span></a
-      >
-      on
-      <span><%= post.date%></span>
+<div class="container post-container p-3 border rounded">
+  <div class="">
+    <div class="container title-container">
+      <h1><%= post.title %></h1>
+      <p>
+        By
+        <a href="/users/<%= post.user._id %>"
+          ><span class="font-weight-bold"><%= post.user.username %></span></a
+        >
+        on
+        <span><%= post.date%></span>
+      </p>
+    </div>
+    <div class="image-container">
+      <img src="/<%= post.image %>" class="post-image" />
+    </div>
+    <p id="image-caption">
+      <% if(currentUserLiked === true) { %>
+      <span style="font-size: 1.5rem;"
+        ><a href="/posts/<%= post._id%>/unlike"
+          ><i id="heart-icon" class="fas fa-heart"></i></a
+      ></span>
+      <% } else { %>
+      <span style="font-size: 1.5rem;"
+        ><a href="/posts/<%= post._id%>/like"
+          ><i id="heart-icon" class="far fa-heart"></i></a
+      ></span>
+      <% } %> <%= post.caption%>
     </p>
-  </div>
-  <div class="image-container">
-    <img src="/<%= post.image %>" class="post-image" />
-    <p id="image-caption"><%= post.caption%></p>
     <% if (currentUser && currentUser._id.equals(post.user._id)) { %>
     <a href="/posts/<%= post._id%>/edit"
       ><button class="btn btn-outline-warning">Edit</button></a
@@ -22,35 +36,36 @@
       <button class="btn btn-outline-danger">Delete</button>
     </form>
     <% } %>
-  </div>
-  <!-- Comment Section -->
-  <div class="comments-section">
-    <% for (let i = 0; i < post.comments.length; i++) { %>
-    <p>
-      <span class="font-weight-bold"
-        ><%= post.comments[i].user.username %> </span
-      ><%= post.comments[i].text %>
-    </p>
-    <form
-      action="/posts/<%= post._id %>/comments/<%= post.comments[i]._id %>?_method=DELETE"
-      method="POST"
-    >
-      <button class="btn btn-outline-danger">Delete</button>
-    </form>
-    <% } %>
-  </div>
-  <div>
-    <form
-      action="/posts/<%= post._id%>/comments"
-      method="POST"
-      class="comment-form"
-    >
-      <textarea name="text" placeholder="Leave a Comment"></textarea>
-      <button type="submit" class="btn btn-outline-secondary">
-        <i class="fa fa-share"></i> Share
-      </button>
-    </form>
+    <!-- Comment Section -->
+    <div class="comments-section">
+      <% for (let i = 0; i < post.comments.length; i++) { %>
+      <p>
+        <span class="font-weight-bold"
+          ><%= post.comments[i].user.username %> </span
+        ><%= post.comments[i].text %>
+      </p>
+      <form
+        action="/posts/<%= post._id %>/comments/<%= post.comments[i]._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-outline-danger">Delete</button>
+      </form>
+      <% } %>
+    </div>
+    <div>
+      <form
+        action="/posts/<%= post._id%>/comments"
+        method="POST"
+        class="comment-form"
+      >
+        <textarea name="text" placeholder="Leave a Comment"></textarea>
+        <button type="submit" class="btn btn-outline-secondary">
+          <i class="fa fa-share"></i> Share
+        </button>
+      </form>
+    </div>
   </div>
 </div>
+<script src="/public/javascript/index.js"></script>
 
 <%- include("../partials/footer") %>

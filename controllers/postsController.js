@@ -90,7 +90,10 @@ postsController.postsShowPage = async (req, res) => {
   } catch (err) {
     res.json({ message: err });
   }
-  res.render('posts/show', { post: post });
+
+  const currentUserLiked = post.likes.includes(req.user._id);
+
+  res.render('posts/show', { post: post, currentUserLiked: currentUserLiked });
 };
 
 postsController.deletePost = async (req, res) => {
@@ -148,29 +151,28 @@ postsController.likePost = async (req, res) => {
   const postId = req.params.postId;
   const post = await Post.findById(postId);
   //check if user already liked the post
-  for (let i = 0; i < post.likes.length; i++) {
-    if (post.likes[i] == userId) {
-      return res.send('You already liked this post');
-    }
+  const userLiked = post.likes.includes(userId);
+  if (userLiked === true) {
+    res.send('You already liked this post');
+  } else {
+    post.likes.push(userId);
+    await post.save();
+    res.redirect('back');
   }
-  post.likes.push(userId);
-  await post.save();
-  res.redirect('back');
 };
 
 postsController.unlikePost = async (req, res) => {
   const userId = req.user.id;
   const postId = req.params.postId;
   const post = await Post.findById(postId);
-  for (let i = 0; i < post.likes.length; i++) {
-    if (post.likes[i] == userId) {
-      post.likes.pull(userId);
-      await post.save();
-      console.log(post);
-      res.redirect('back');
-    }
+  const userLiked = post.likes.includes(userId);
+  if (userLiked === true) {
+    post.likes.pull(userId);
+    await post.save();
+    res.redirect('back');
+  } else {
+    res.send('You never liked this post');
   }
-  return res.send('You havent liked this post');
 };
 
 module.exports = postsController;

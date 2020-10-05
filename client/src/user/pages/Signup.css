@@ -1,0 +1,71 @@
+body {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.post-container {
+  padding: 15px 15px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  max-width: 650px !important;
+}
+
+.image-container {
+  height: 75%;
+  max-width: 100%;
+}
+
+.post-image {
+  max-width: 100%;
+  height: 500px;
+}
+
+.title-container {
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 1rem;
+}
+
+.comments-section {
+  text-align: left;
+  padding-top: 1rem;
+  border-top: 1px solid lightgray;
+}
+
+#image-caption {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.comment-form {
+  text-align: left;
+}
+
+textarea {
+  border-color: lightgray;
+}
+
+.profile-page-card {
+  width: 18rem;
+  padding-top: 1.25rem;
+}

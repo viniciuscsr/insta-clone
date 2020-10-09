@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import axios from 'axios';
 
-import './Signup.css';
-
-class Signup extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       username: '',
-      email: '',
       password: '',
     };
   }
@@ -41,18 +37,7 @@ class Signup extends React.Component {
           width={72}
           height={72}
         />
-        <h1 className='h3 mb-3 font-weight-normal'>Please Sign up</h1>
-        <label className='sr-only'>Name</label>
-        <input
-          name='name'
-          type='text'
-          className='form-control'
-          placeholder='Name'
-          value={this.state.name}
-          onChange={this.handleChange}
-          required
-          autoFocus
-        />
+        <h1 className='h3 mb-3 font-weight-normal'>Please Log in</h1>
         <label htmlFor='inputEmail' className='sr-only'>
           Username
         </label>
@@ -64,21 +49,7 @@ class Signup extends React.Component {
           value={this.state.username}
           onChange={this.handleChange}
           required
-          autoFocus
-        />
-        <label htmlFor='inputEmail' className='sr-only'>
-          Email
-        </label>
-        <input
-          name='email'
-          type='email'
-          id='inputEmail'
-          className='form-control'
-          placeholder='Email'
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-          autoFocus
+          autofocus
         />
         <label htmlFor='inputPassword' className='sr-only'>
           Password
@@ -101,4 +72,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default Login;

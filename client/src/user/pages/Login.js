@@ -20,11 +20,23 @@ class Login extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-    const res = await axios.post(
-      'https://jsonplaceholder.typicode.com/posts',
-      this.state
-    );
-    console.log(res);
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/users/login',
+        {
+          username: this.state.username,
+          password: this.state.password,
+        },
+        { withCredentials: true }
+      );
+      if (!res.data.authenticated) {
+        console.log('Invalid credentials');
+      } else {
+        console.log('sucessfully logged in');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -49,7 +61,7 @@ class Login extends Component {
           value={this.state.username}
           onChange={this.handleChange}
           required
-          autofocus
+          autoFocus
         />
         <label htmlFor='inputPassword' className='sr-only'>
           Password

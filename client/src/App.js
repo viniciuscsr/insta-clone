@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Signup from './user/pages/Signup';
 import MainHeader from './shared/Navigation/MainHeader';
 import Login from './user/pages/Login';
+import Newsfeed from './pages/Newsfeed';
 
 class App extends React.Component {
   render() {
@@ -21,6 +22,9 @@ class App extends React.Component {
         </Route>
         <Route exact path='/users/login'>
           <Login />
+        </Route>
+        <Route exact path='/posts'>
+          <Newsfeed />
         </Route>
       </Router>
     );

@@ -10,7 +10,7 @@ const SortingMechanism = require('../models/SortingMechanism');
 // NEWSFEED
 //-----------------
 
-postsController.newsfeed = async (req, res, next) => {
+postsController.newsfeed = async (req, res) => {
   const userId = req.user.id;
   let foundUser;
   try {
@@ -36,7 +36,8 @@ postsController.newsfeed = async (req, res, next) => {
   const sortedPosts = new SortingMechanism(postsToDisplay);
   sortedPosts.mostRecent();
 
-  res.render('posts/newsfeed', { post: sortedPosts.sortedPosts });
+  res.json(sortedPosts.sortedPosts);
+  // res.render('posts/newsfeed', { post: sortedPosts.sortedPosts });
 };
 
 postsController.getNewPost = (req, res) => {

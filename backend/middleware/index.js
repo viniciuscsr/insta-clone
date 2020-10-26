@@ -2,12 +2,22 @@ const middlewareObj = {};
 
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const HttpError = require('../models/httpError');
+const jwt = require('jsonwebtoken');
 
 middlewareObj.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      throw new Error('Failed Authentication');
+    }
+    const decodedToken = jwt.verify(token, 'secretsecret');
+    req.userData = { userId: decodedToken.userId };
+    next();
+  } catch (err) {
+    const error = new HttpError('Failed Authentication', 401);
+    return next(error);
   }
-  res.redirect('/users/login');
 };
 
 middlewareObj.postOwnership = (req, res, next) => {

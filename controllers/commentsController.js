@@ -52,7 +52,7 @@ commentsController.postNewComment = async (req, res, next) => {
 
 commentsController.deleteComment = async (req, res) => {
   try {
-    await Comment.remove({ _id: req.params.commentId });
+    await Comment.deleteOne({ _id: req.params.commentId });
   } catch (error) {
     res.json({ message: 'Could not delete the comment' });
   }

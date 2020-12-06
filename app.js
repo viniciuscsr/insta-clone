@@ -8,6 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
 const User = require('./models/user');
+const morgan = require('morgan');
 
 const postsRoutes = require('./routes/posts');
 const usersRoutes = require('./routes/users');
@@ -40,6 +41,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(passport.initialize());
 app.use(passport.session());

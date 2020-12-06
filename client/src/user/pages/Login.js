@@ -16,6 +16,8 @@ const Login = () => {
         username: data.username,
         password: data.password,
       });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userId', res.data.userId);
       auth.login(res.data.userId, res.data.token, res.data.username);
     } catch (err) {
       console.log(err);

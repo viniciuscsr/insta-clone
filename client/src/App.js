@@ -13,6 +13,8 @@ import Signup from './user/pages/Signup';
 import MainHeader from './shared/Navigation/MainHeader';
 import Login from './user/pages/Login';
 import Newsfeed from './pages/Newsfeed';
+import NewPost from './posts/pages/NewPost';
+
 import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
@@ -39,6 +41,9 @@ const App = () => {
       <Switch>
         <Route exact path='/posts'>
           <Newsfeed />
+        </Route>
+        <Route exact path='/posts/new'>
+          <NewPost />
         </Route>
         <Redirect to='/posts' />
       </Switch>

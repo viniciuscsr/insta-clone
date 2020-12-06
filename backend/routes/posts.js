@@ -39,7 +39,7 @@ const upload = multer({
 // NEWSFEED
 // -----------------
 
-router.get('/', middleware.isLoggedIn, postsController.newsfeed);
+router.post('/', middleware.isLoggedIn, postsController.newsfeed);
 
 // -----------------
 // NEW POST

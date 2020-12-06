@@ -11,7 +11,7 @@ const SortingMechanism = require('../models/SortingMechanism');
 //-----------------
 
 postsController.newsfeed = async (req, res) => {
-  const userId = req.user.id;
+  const { userId } = req.body;
   let foundUser;
   try {
     foundUser = await User.findById(userId);

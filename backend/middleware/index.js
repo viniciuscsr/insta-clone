@@ -7,9 +7,10 @@ const jwt = require('jsonwebtoken');
 
 middlewareObj.isLoggedIn = (req, res, next) => {
   try {
+    console.log(req.headers);
     const token = req.headers.authorization.split(' ')[1];
     if (!token) {
-      throw new Error('Failed Authentication');
+      throw new Error('Failed Authentication!');
     }
     const decodedToken = jwt.verify(token, 'secretsecret');
     req.userData = { userId: decodedToken.userId };
